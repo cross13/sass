@@ -33,7 +33,10 @@ angular.module('sassApp')
 	    toggleSelected: function(item){
 	    	item.selected = !item.selected;
 	    },
-	    loadingEvent: 'set-available-option'
+	    loadingEvent: 'set-available-option',
+	    isSelected: function(item){
+	    	return item.selected;
+	    }
     };
 
     $scope.enabled = params.enabled;
@@ -47,4 +50,6 @@ angular.module('sassApp')
     };
 
     $scope.loadingEvent = params.loadingEvent;
+
+    $scope.isSelected = params.isSelected;
   });

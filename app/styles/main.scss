@@ -29,9 +29,12 @@ li {
 
       &.selected {
         label {
-          border-radius: 5px 5px 0 0;
           background-color: #333;
 
+          &:first {
+            border-radius: 5px 5px 0 0;
+          }
+          
           &:after {
             background: url("../../images/select_checkmark_circle.svg") no-repeat;
           }

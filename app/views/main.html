@@ -1,11 +1,1 @@
-<div class="options" ssloading loading-event="{{loadingEvent}}">
-  <div class="spinner"></div>
-  <ul class="selection-list">
-    <li class="selection-list-item" ng-repeat="item in items" ng-class="{selected: item.selected}" ng-click="toggleSelected(item)">
-        <label for="ra-0">
-            <span class="name">{{item.name}}</span>
-            <span class="price">${{item.price}}</span>
-        </label>
-    </li>
-  </ul>
-</div>
+<sscheckbox enabled="true" items="items" toggleselected="toggleSelected" loadingevent="loadingEvent" isselected="isSelected"></sscheckbox>
