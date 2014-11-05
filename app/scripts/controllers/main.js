@@ -37,7 +37,7 @@ angular.module('sassApp')
 	    isSelected: function(item){
 	    	return item.selected;
 	    },
-	    option: "<span class=\"name\">{{item.name}}</span><span class=\"price\">${{item.price}}</span>"
+	    option: '<span class="option-name">{{item.name}}</span><span class="option-price">${{item.price}}</span>'
     };
 
     $scope.enabled = params.enabled;

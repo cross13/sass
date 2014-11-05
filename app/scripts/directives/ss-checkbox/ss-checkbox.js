@@ -13,17 +13,10 @@ angular.module('sassApp')
                 loadingEvent: '=loadingevent',
                 isSelected: '=isselected',
                 option: '='
-            },
-            controller: function($scope, $sce){
-                console.log($scope.items);
-
-                $scope.toTrusted = function(html) {
-                    return $sce.trustAsHtml(html);
-                };
             }
         }
     })
-    .directive('sscheckboxoption', function(){
+    .directive('sscheckboxoption', function($compile){
         return{
             restrict: 'E',
             replace: true,
@@ -31,18 +24,9 @@ angular.module('sassApp')
                 item: '=',
                 template: '='
             },
-            compile: function(tEl, tAttrs){
-                return {
-                    pre: function(scope, iEl, iAttrs, controller) {
-                        iEl.replaceWith(scope.template);
-                    },
-                    post: function(scope, iEl, iAttrs, controller) {
-
-                    }
-                };
-                var template = scope.template;
-
-                tEl.replaceWith(template);
+            link: function(scope, tEl, tAttrs){
+                var el = $compile(scope.template)(scope);
+                tEl.replaceWith(el);
             }
         }
     });

@@ -1,3 +1,28 @@
+$fontSize: 16px;
+$fontFamily: RobotoCondReg;
+$white: #fff;
+$darkGrey: #333;
+
+@mixin display {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($type, $value) {
+  -webkit-flex-#{$type}: $value;
+  -moz-flex-#{$type}: $value;
+  -ms-flex-#{$type}: $value;          
+  flex-#{$type}: $value;
+}
+
+@mixin box-sizing($size) {
+  -webkit-box-sizing: $size;
+  -moz-box-sizing: $size;
+  box-sizing: $size;
+}
+
 ul {
   margin: 0;
   padding: 0;
@@ -10,58 +35,54 @@ li {
 }
 
 .options {
-  font-family: Roboto;
-  font-size: 16px;
-
-  width: 569px;
-
   .selection-list {
-    border: 2px solid #333;
+    border: 2px solid $darkGrey;
     border-radius: 10px;
     margin-bottom: 2%;
 
     .selection-list-item {
       width: 100%;
       height: 50px;
-      border-bottom: 2px solid #333;
-      font-family: RobotoCondReg;
-      font-size: 16px;
+      border-bottom: 2px solid $darkGrey;
+      font-family: $fontFamily;
+      font-size: $fontSize;
+
+      &:last-child {
+        border-bottom: none;
+      }
 
       &.selected {
-        label {
-          background-color: #333;
+        &:first-child {
+          border-radius: 5px 5px 0 0;
+        }
 
-          &:first {
-            border-radius: 5px 5px 0 0;
-          }
-          
+        &:last-child {
+          border-radius: 0 0 5px 5px;
+        }
+
+        label {
+          background-color: $darkGrey;
+
           &:after {
             background: url("../../images/select_checkmark_circle.svg") no-repeat;
           }
 
-          span {
-            &.name {
-              color: #fff;
-            }
+          .option-name {
+            color: $white;
+          }
 
-            &.price {
-              color: #fff;
-            }
+          .option-price {
+            color: $white;
           }
         }
       }
 
       label {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
+        @include box-sizing(border-box);
         width: 100%;
         height: 100%;
         padding: 10px;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
+        @include display;
 
         &:after {
           content: "";
@@ -70,44 +91,34 @@ li {
           margin-left: 10px;
           background: url("../../images/select_circle_empty.svg") no-repeat;
           display: block;
-          -webkit-flex-shrink: 0;
-          -moz-flex-shrink: 0;
-          -ms-flex-shrink: 0;
+          @include flex("shrink",0);
           -ms-flex: 0 0;
-          flex-shrink: 0;
         }
 
-        span {
+        .option-element {
           line-height: 30px;
           text-transform: none;
-          color: #333;
+          color: $darkGrey;
           display: block;
+        }
 
+        .option-name {
+          @extend .option-element;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          @include flex("basis", 100%);
+          @include flex("grow", 5);
+          -ms-flex: 0 1 100%;
+          -webkit-box-flex: 5;
+        }
 
-          &.name {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            -webkit-flex-basis: 100%;
-            -moz-flex-basis: 100%;
-            -ms-flex-basis: 100%;
-            -ms-flex: 0 1 100%;
-            flex-basis: 100%;
-            -webkit-flex-grow: 5;
-            -moz-flex-grow: 5;
-            -ms-flex-grow: 5;
-            -webkit-box-flex: 5;
-            flex-grow: 5;
-          }
-          &.price {
-            margin-left: 5px;
-            -webkit-flex-shrink: 0;
-            -moz-flex-shrink: 0;
-            -ms-flex-shrink: 0;
-            -ms-flex: 0 0;
-            flex-shrink: 0;
-          }
-        } 
+        .option-price {
+          @extend .option-element;
+          margin-left: 5px;
+          @include flex("shrink",0);
+          -ms-flex: 0 0;
+        }
       }
     }
   }
