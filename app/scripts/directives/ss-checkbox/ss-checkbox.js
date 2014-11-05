@@ -11,10 +11,38 @@ angular.module('sassApp')
                 items: '=',
                 toggleSelected: '=toggleselected',
                 loadingEvent: '=loadingevent',
-                isSelected: '=isselected'
+                isSelected: '=isselected',
+                option: '='
             },
-            controller: function($scope){
+            controller: function($scope, $sce){
                 console.log($scope.items);
+
+                $scope.toTrusted = function(html) {
+                    return $sce.trustAsHtml(html);
+                };
+            }
+        }
+    })
+    .directive('sscheckboxoption', function(){
+        return{
+            restrict: 'E',
+            replace: true,
+            scope: {
+                item: '=',
+                template: '='
+            },
+            compile: function(tEl, tAttrs){
+                return {
+                    pre: function(scope, iEl, iAttrs, controller) {
+                        iEl.replaceWith(scope.template);
+                    },
+                    post: function(scope, iEl, iAttrs, controller) {
+
+                    }
+                };
+                var template = scope.template;
+
+                tEl.replaceWith(template);
             }
         }
     });

@@ -36,7 +36,8 @@ angular.module('sassApp')
 	    loadingEvent: 'set-available-option',
 	    isSelected: function(item){
 	    	return item.selected;
-	    }
+	    },
+	    option: "<span class=\"name\">{{item.name}}</span><span class=\"price\">${{item.price}}</span>"
     };
 
     $scope.enabled = params.enabled;
@@ -52,4 +53,6 @@ angular.module('sassApp')
     $scope.loadingEvent = params.loadingEvent;
 
     $scope.isSelected = params.isSelected;
+
+    $scope.option = params.option;
   });
