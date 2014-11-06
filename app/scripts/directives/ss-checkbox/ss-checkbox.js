@@ -11,14 +11,27 @@ angular.module('sassApp')
                 onToggle: '=ontoggle',
                 option: '='
             },
-            controller: function($scope) {
+            controller: function($scope, $attrs) {
                 $scope.toggleSelected = function(item){
                     item.selected = !item.selected;
-                    $scope.onToggle && $scope.onToggle(item);
+                    
+                    if ($scope.onToggle) {
+                        $scope.$broadcast($attrs.id + '-start');
+                        var onToggle = $scope.onToggle(item);
+                        if (typeof onToggle.then === 'function') {
+                            onToggle
+                                .then(function() {
+                                    $scope.$broadcast($attrs.id + '-end');
+                                });
+                        }
+                        else {
+                            $scope.$broadcast($attrs.id+ '-end');
+                        }
+                    }
                 };
                 $scope.isSelected = function(item){
                     return item.selected;
-                }
+                };
             }
         }
     })

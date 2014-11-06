@@ -8,7 +8,7 @@
  * Controller of the sassApp
  */
 angular.module('sassApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, $q) {
     var params = {
     	items: [
 	    	{
@@ -29,13 +29,17 @@ angular.module('sassApp')
 	    		price: 9.99
 	    	}
 	    ],
-	    option: '<span class="option-name">{{item.name}}</span><span class="option-price">${{item.price}}</span>',
-	    onToggle: function(item){
-	    	console.log(item);
-	    }
+	    option: '<span class="option-name">{{item.name}}</span><span class="option-price">${{item.price}}</span>'
     };
 
     $scope.items = params.items;
     $scope.option = params.option;
-    $scope.onToggle = params.onToggle;
+    $scope.onToggle = function(item){
+    	var def = $q.defer();
+
+    	console.log(item);
+    	def.resolve();
+
+    	return def.promise;
+    };
   });
