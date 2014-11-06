@@ -7,12 +7,18 @@ angular.module('sassApp')
             replace: true,
             templateUrl: 'scripts/directives/ss-checkbox/ss-checkbox.html',
             scope: {
-                enabled: '=',
                 items: '=',
-                toggleSelected: '=toggleselected',
-                loadingEvent: '=loadingevent',
-                isSelected: '=isselected',
+                onToggle: '=ontoggle',
                 option: '='
+            },
+            controller: function($scope) {
+                $scope.toggleSelected = function(item){
+                    item.selected = !item.selected;
+                    $scope.onToggle && $scope.onToggle(item);
+                };
+                $scope.isSelected = function(item){
+                    return item.selected;
+                }
             }
         }
     })
@@ -24,9 +30,12 @@ angular.module('sassApp')
                 item: '=',
                 template: '='
             },
+            template: '<span class="option-element">{{item.name}}</span>',//default option template
             link: function(scope, tEl, tAttrs){
-                var el = $compile(scope.template)(scope);
-                tEl.replaceWith(el);
+                if (scope.template){
+                    var el = $compile(scope.template)(scope);
+                    tEl.replaceWith(el);
+                }
             }
         }
     });

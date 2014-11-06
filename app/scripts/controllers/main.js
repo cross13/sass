@@ -10,7 +10,6 @@
 angular.module('sassApp')
   .controller('MainCtrl', function ($scope) {
     var params = {
-    	enabled: true,
     	items: [
 	    	{
 	    		name: '3-Prong 5\' Flat Dryer Cord - Gray',
@@ -30,29 +29,13 @@ angular.module('sassApp')
 	    		price: 9.99
 	    	}
 	    ],
-	    toggleSelected: function(item){
-	    	item.selected = !item.selected;
-	    },
-	    loadingEvent: 'set-available-option',
-	    isSelected: function(item){
-	    	return item.selected;
-	    },
-	    option: '<span class="option-name">{{item.name}}</span><span class="option-price">${{item.price}}</span>'
-    };
-
-    $scope.enabled = params.enabled;
-
-    $scope.items = params.items;
-
-    $scope.toggleSelected = function(item) {
-    	if ($scope.enabled) {
-	    	params.toggleSelected(item);
+	    option: '<span class="option-name">{{item.name}}</span><span class="option-price">${{item.price}}</span>',
+	    onToggle: function(item){
+	    	console.log(item);
 	    }
     };
 
-    $scope.loadingEvent = params.loadingEvent;
-
-    $scope.isSelected = params.isSelected;
-
+    $scope.items = params.items;
     $scope.option = params.option;
+    $scope.onToggle = params.onToggle;
   });
