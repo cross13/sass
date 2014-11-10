@@ -47,36 +47,4 @@ angular.module('sassApp')
                 }
             }
         }
-    });/*
-    .directive('ssradiobuton', function(){
-        return{
-            retrict: 'E',
-            replace: true,
-            scope: {
-                items: '=',
-                onChange: '=onchange',
-                option: '='
-            },
-            controller: function($scope, $attrs) {
-                $scope.toggleSelected = function(item){
-                    item.selected = !item.selected;
-                    
-                    if ($scope.onToggle) {
-                        $scope.$broadcast($attrs.id + '-start');
-                        var onToggle = $scope.onToggle(item);
-                        if (typeof onToggle.then === 'function') {
-                            onToggle
-                                .then(function() {
-                                    $scope.$broadcast($attrs.id + '-end');
-                                });
-                        }
-                        else {
-                            $scope.$broadcast($attrs.id+ '-end');
-                        }
-                    }
-                };
-                $scope.isSelected = function(item){
-                    return item.selected;
-                };
-            }
-    });*/
+    });
