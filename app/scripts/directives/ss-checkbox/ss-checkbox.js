@@ -11,22 +11,18 @@ angular.module('sassApp')
                 onToggle: '=ontoggle',
                 option: '='
             },
-            controller: function($scope, $attrs) {
+            controller: function($q, $scope, $attrs) {
                 $scope.toggleSelected = function(item){
                     item.selected = !item.selected;
+
+                    var loadingEvent = $attrs.id || "loading";
                     
                     if ($scope.onToggle) {
-                        $scope.$broadcast($attrs.id + '-start');
+                        $scope.$broadcast(loadingEvent + '-start');
                         var onToggle = $scope.onToggle(item);
-                        if (typeof onToggle.then === 'function') {
-                            onToggle
-                                .then(function() {
-                                    $scope.$broadcast($attrs.id + '-end');
-                                });
-                        }
-                        else {
-                            $scope.$broadcast($attrs.id+ '-end');
-                        }
+                        $q.when(onToggle).then(function() {
+                            $scope.$broadcast(loadingEvent + '-end');
+                        });
                     }
                 };
                 $scope.isSelected = function(item){
@@ -51,4 +47,36 @@ angular.module('sassApp')
                 }
             }
         }
-    });
+    });/*
+    .directive('ssradiobuton', function(){
+        return{
+            retrict: 'E',
+            replace: true,
+            scope: {
+                items: '=',
+                onChange: '=onchange',
+                option: '='
+            },
+            controller: function($scope, $attrs) {
+                $scope.toggleSelected = function(item){
+                    item.selected = !item.selected;
+                    
+                    if ($scope.onToggle) {
+                        $scope.$broadcast($attrs.id + '-start');
+                        var onToggle = $scope.onToggle(item);
+                        if (typeof onToggle.then === 'function') {
+                            onToggle
+                                .then(function() {
+                                    $scope.$broadcast($attrs.id + '-end');
+                                });
+                        }
+                        else {
+                            $scope.$broadcast($attrs.id+ '-end');
+                        }
+                    }
+                };
+                $scope.isSelected = function(item){
+                    return item.selected;
+                };
+            }
+    });*/
