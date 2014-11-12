@@ -9,29 +9,31 @@ angular.module('sassApp')
             scope: {
                 items: '=',
                 onChange: '=onchange',
-                option: '='
+                option: '=',
+                selected: '='
             },
             controller: function($q, $scope, $attrs) {
-                var clear = function(item) {
-                    angular.forEach($scope.items, function(key) {
-                        if (key !== item) {
-                            key.selected = null;
-                        }
-                    });
-                };
+                var loadingEvent = $attrs.id || "loading";
 
-                $scope.radioId = $attrs.id ? ($attrs.id + '-') : '';
-
-                $scope.onToggle = function(item) {
-                    if (item.selected) {
-                        $scope.selected = item;
-                    }
-                    else {
+                $scope.toggleSelected = function(item){
+                    if ($scope.selected === item) {
                         $scope.selected = null;
                     }
-                    clear(item);
+                    else {
+                        $scope.selected = item;
+                    }
+                    
+                    if ($scope.onChange) {
+                        $scope.$broadcast(loadingEvent + '-start');
+                        var onChange = $scope.onChange(item);
+                        $q.when(onChange).then(function() {
+                            $scope.$broadcast(loadingEvent + '-end');
+                        });
+                    }
+                };
 
-                    return $scope.onChange(item);
+                $scope.isSelected = function(item){
+                    return item === $scope.selected;
                 };
             }
         }

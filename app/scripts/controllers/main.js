@@ -32,8 +32,7 @@ angular.module('sassApp')
 	    radioItems: [
 	    	{
 	    		name: '3-Prong 5\' Flat Dryer Cord - Gray',
-	    		price: 29.99,
-	    		selected: true
+	    		price: 29.99
 	    	},
 	    	{
 	    		name: '4-Prong 5\' Round Dryer Cord - Black',
@@ -53,6 +52,7 @@ angular.module('sassApp')
 
     $scope.checkboxItems = params.checkboxItems;
     $scope.radioItems = params.radioItems;
+    $scope.selectedRadioItem = $scope.radioItems[0];
     $scope.option = params.option;
     $scope.onToggle = function(item){
     	var def = $q.defer();
