@@ -17,7 +17,7 @@ angular.module('sassApp')
 
                 $scope.toggleSelected = function(item){
                     if ($scope.selected === item) {
-                        $scope.selected = null;
+                        return;
                     }
                     else {
                         $scope.selected = item;
