@@ -39,7 +39,7 @@ angular.module('sassApp')
                 item: '=',
                 template: '='
             },
-            template: '<span class="option-element">{{item.name}}</span>',//default option template
+            template: '<span class="option-element" ng-bind-html="item.name"></span>',//default option template
             link: function(scope, tEl, tAttrs){
                 if (scope.template){
                     var el = $compile(scope.template)(scope);

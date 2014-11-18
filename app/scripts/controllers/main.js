@@ -47,7 +47,7 @@ angular.module('sassApp')
 	    		price: 9.99
 	    	}
 	    ],
-	    option: '<span class="option-name">{{item.name}}</span><span class="option-price">${{item.price}}</span>'
+	    option: '<span class="option-name" ng-bind-html="item.name"></span><span class="option-price">${{item.price}}</span>'
     };
 
     $scope.checkboxItems = params.checkboxItems;
